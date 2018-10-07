@@ -10,6 +10,7 @@ class App extends Component {
       lng: -73.985128,
       lat: 40.758939,
       zoom: 12,
+      data: {}
     }
   }
     componentDidMount() {
@@ -52,6 +53,9 @@ class App extends Component {
         }).then( res => {
           // send response data to restroomMarkers obj
           restroomMarkers = res;
+          // send data object to state
+          this.setState({data: restroomMarkers})
+          // console.log(this.state.data);
           // log any errors
         }).catch( err => console.log('Error: ', err));
 
@@ -99,9 +103,30 @@ class App extends Component {
               console.log(e);
               // select any previous active markers
               e.stopPropagation();
-            })
-          })
-        }
+              createPopup(marker);
+            });
+          });
+        };
+
+        function createPopup(currentRestroom) {
+          let current = currentRestroom.properties;
+          // select any previous popups
+          const popups = document.getElementsByClassName('mapboxgl-popup');
+          console.log(popups);
+          // remove previous popups from display
+          if(popups[0]) {
+            popups[0].remove();
+          };
+          // create popup at selected marker
+          let newPopup = new mapboxgl.Popup({ closeOnClick: false})
+            .setLngLat(currentRestroom.geometry.coordinates)
+            .setHTML(`<h3>${current.name}</h3>
+                        <h4>Address: ${current.address}</h4>
+                        <div class="details">${current.year_round ? 'Open year round' : ''}</div>
+                        <div class="details">${current.handicap_a11y ? '<div id="a11y"></div>' : ''}
+              `)
+            .addTo(map);
+        };
     }
 
   render() {

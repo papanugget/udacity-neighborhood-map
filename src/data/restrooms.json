@@ -1,0 +1,203 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 
+                    -73.937455,
+                    40.812370
+            ]
+        },
+        "properties": {
+            "name": "Abe Lincoln Playground",
+            "address": "5th Ave & E 135th St",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.951248,
+                    40.823066
+            ]
+        },
+        "properties": {
+            "name": "Alexander Hamilton Playground",
+            "address": "Hamilton Place &, W 140th St",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                     -73.997311,
+                     40.711048
+            ]
+        },
+        "properties": {
+            "name": "Alfred E. Smith Park",
+            "address": "4, Catherine Slip",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.952442,
+                    40.818318
+            ]
+        },
+        "properties": {
+            "name": "Annunciation Playground",
+            "address": "W 135th St & Convent Ave",
+            "boro": "Manhattan",
+            "year_round": false,
+            "handicap_a11y": true,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.975422,
+                    40.735864
+            ]
+        },
+        "properties": {
+            "name": "Asser Levy Recreation Center",
+            "address": "390 Asser Levy Pl",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.938033,
+                    40.841675
+            ]
+        },
+        "properties": {
+            "name": "Audubon Playground",
+            "address": "550 W 170th St",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.982264,
+                    40.735601
+            ]
+        },
+        "properties": {
+            "name": "Augustus St. Gaudens Playground",
+            "address": "328 2nd Ave",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.954344,
+                    40.790531
+            ]
+        },
+        "properties": {
+            "name": "Robert Bendheim Playground",
+            "address": "1184 5th Ave",
+            "boro": "Manhattan",
+            "year_round": false,
+            "handicap_a11y": true,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.938002,
+                    40.852823
+            ]
+        },
+        "properties": {
+            "name": "Bennett Park",
+            "address": "W 183rd St &, Fort Washington Ave",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": "Historic neighborhood park named for an 18th-century publisher, with a playground & benches."
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -74.005482,
+                    40.736507
+            ]
+        },
+        "properties": {
+            "name": "Bleecker Playground",
+            "address": "Bleecker St & W 11th St",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": false,
+            "details": ""
+            }
+        },
+        {
+            "type" : "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [  
+                    -73.951460,
+                    40.797124 
+            ]
+        },
+        "properties": {
+            "name": "Charles A. Dana Discovery Center",
+            "address": "110th Street between Fifth Avenue and Malcolm X Boulevard",
+            "boro": "Manhattan",
+            "year_round": true,
+            "handicap_a11y": true,
+            "details": "Environmental center in old Central Park boathouse that lends fishing equipment for catch & release."
+            }
+        }
+    ]
+}
