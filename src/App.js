@@ -73,6 +73,16 @@ class App extends Component {
           addMarkers(restroomMarkers);
         });
 
+        // change coordinates displayed when map moves
+        map.on('move', () => {
+          const { lng, lat } = map.getCenter();
+          this.setState({
+            lng: lng.toFixed(4),
+            lat: lat.toFixed(4),
+            zoom: map.getZoom().toFixed(2)
+          });
+        });
+
         function addMarkers(data) {
           // iterate over passed in object data
           data.features.map((marker, index) => {
@@ -87,12 +97,15 @@ class App extends Component {
             // event listner for each map marker
             mapMarker.addEventListener('click', (e) => {
               console.log(e);
+              // select any previous active markers
+              e.stopPropagation();
             })
           })
         }
     }
 
   render() {
+    // contains lng, lat coordinates for the location layer in upper right
     const { lng, lat, zoom } = this.state;
     return (
       <div>
