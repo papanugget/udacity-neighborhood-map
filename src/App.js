@@ -23,8 +23,6 @@ class App extends Component {
         zoom
       });
 
-      // const myHeaders = new Headers();
-
       // init Object to pass to request arg
       const myInit = {
         method: 'GET',
@@ -104,12 +102,13 @@ class App extends Component {
               // select any previous active markers
               e.stopPropagation();
               createPopup(marker);
+              flyToMarker(marker);
             });
           });
         };
 
-        function createPopup(currentRestroom) {
-          let current = currentRestroom.properties;
+        function createPopup(currentMarker) {
+          let current = currentMarker.properties;
           // select any previous popups
           const popups = document.getElementsByClassName('mapboxgl-popup');
           console.log(popups);
@@ -119,7 +118,7 @@ class App extends Component {
           };
           // create popup at selected marker
           let newPopup = new mapboxgl.Popup({ closeOnClick: false})
-            .setLngLat(currentRestroom.geometry.coordinates)
+            .setLngLat(currentMarker.geometry.coordinates)
             .setHTML(`<h3>${current.name}</h3>
                         <h4>Address: ${current.address}</h4>
                         <div class="details">${current.year_round ? 'Open year round' : ''}</div>
@@ -127,18 +126,25 @@ class App extends Component {
               `)
             .addTo(map);
         };
+
+        function flyToMarker(currentMarker) {
+          map.flyTo({
+            center: currentMarker.geometry.coordinates,
+            zoom: 15
+          })
+        }
     }
 
   render() {
     // contains lng, lat coordinates for the location layer in upper right
     const { lng, lat, zoom } = this.state;
     return (
-      <div>
+      <main>
         <div className="inline-block absolute top right mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
         <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
-        <div ref={el => this.mapContainer = el} className="absolute top right left bottom" />
-      </div>
+        <main ref={el => this.mapContainer = el} className="absolute top right left bottom" />
+      </main>
     );
   }
 }
