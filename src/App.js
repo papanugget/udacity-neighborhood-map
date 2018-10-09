@@ -143,14 +143,21 @@ class App extends Component {
                       <div class="details">${current.handicap_a11y ? '<div id="a11y"></div>' : ''}
             `)
           .addTo(map);
-      };
+      }
+
+      function clearPopup() {
+        const popups = document.getElementsByClassName('mapboxgl-popup');
+        if(popups[0]) {
+          popups[0].remove();
+        };
+      }
 
       function flyToMarker(currentMarker) {
         map.flyTo({
           center: currentMarker.geometry.coordinates,
           zoom: 15
-        })
-      };
+        });
+      }
 
       function buildRestroomList(data) {
         // console.log(data);
@@ -179,20 +186,42 @@ class App extends Component {
               }                                       
             })
         });
-      };
- 
+      }
     }   
-
+    clearPopup = () => {
+      const popups = document.getElementsByClassName('mapboxgl-popup');
+      if(popups[0]) {
+        popups[0].remove();
+      };
+    }
     handleToggle = () => {
       this.setState({open: !this.state.open})
       document.querySelector('.burger-menu').classList.toggle('open');
     }
     handleClose = () => this.setState({open: false});
+
+    updateQuery = query => {
+      this.setState({query})
+      let locations = document.getElementsByClassName('item');
+      let mapMarkers = document.getElementsByClassName('marker');
+      query = query.toLowerCase();
+      // console.log(mapMarkers);
+      this.clearPopup();
+      for(let i = 0; i < locations.length; i++) {
+          if(locations[i].innerText.toLowerCase().indexOf(query) > - 1) {
+            locations[i].style.display = "";
+            mapMarkers[i].style.display = "";
+          } else {
+            locations[i].style.display = "none";
+            mapMarkers[i].style.display = "none";
+          }
+      }
+    }
   render() {
     // contains lng, lat coordinates for the location layer in upper right
     const { lng, lat, zoom } = this.state;
     const drawerStyle = { 
-      'text-align': 'center'
+      'textAlign': 'center'
     };
     return (
       <main>
@@ -211,7 +240,7 @@ class App extends Component {
             onRequestChange={(open) => this.setState({open})}
             style={drawerStyle}
           >
-          <SearchBar />
+          <SearchBar updateQuery={this.updateQuery}/>
             <div className="locations" id="locations">
               
 

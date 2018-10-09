@@ -11,8 +11,7 @@ class SearchBar extends Component {
           id="query-Filter"
           placeholder="Search..."
           aria-label="Locations filter"
-        // value={this.props.query}
-          onChange={e => console.log(e.target.value)}
+          onChange={e => this.props.updateQuery(e.target.value)}
           />
         </div>
       );
