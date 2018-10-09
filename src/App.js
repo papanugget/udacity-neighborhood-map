@@ -166,6 +166,7 @@ class App extends Component {
             let locations = document.getElementById('locations');
             let location = `<div class='item' id=listing-${index}>
                                 <a href='#' class='title' data-value=${index}>${restroomProp.name}</a>
+                                <img src="${restroomProp.img}"/>
                                 <div class='details'>${restroomProp.address}<br>${restroomProp.year_round ? 'Open Year Round' : ''} ${restroomProp.handicap_a11y ? 'Handicap Accessible' : ''}<br>
                                 </div>   
                             </div><br>`;
