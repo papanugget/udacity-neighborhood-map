@@ -142,9 +142,9 @@ class App extends Component {
           .setLngLat(currentMarker.geometry.coordinates)
           .setHTML(`<h3>${current.name}</h3>
                       <h4>Address: ${current.address}</h4>
-                      <img src="${current.img}"/>
-                      <div class="details">${current.year_round ? 'Open year round' : ''}</div>
-                      <div class="details">${current.handicap_a11y ? '<div id="a11y"></div>' : ''}
+                      <img src="${current.img}" alt="image of ${current.name}"/>
+                      ${current.year_round ? '<div class="details" aria-label="year round">Open year round</div>' : ''}
+                      <div class="details">${current.handicap_a11y ? '<div id="a11y" aria-label="handicap accessible"></div>' : ''}</div>
             `)
           .addTo(map);
       }
@@ -166,7 +166,7 @@ class App extends Component {
             let locations = document.getElementById('locations');
             let location = `<div class='item' id=listing-${index}>
                                 <a href='#' class='title' data-value=${index}>${restroomProp.name}</a>
-                                <img src="${restroomProp.img}"/>
+                                <img src="${restroomProp.img}" alt="image of ${restroomProp.name}"/>
                                 <div class='details'>${restroomProp.address}<br>${restroomProp.year_round ? 'Open Year Round' : ''} ${restroomProp.handicap_a11y ? 'Handicap Accessible' : ''}<br>
                                 </div>   
                             </div><br>`;
