@@ -16,6 +16,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://imgur.com/jS6KlFL.jpg", 
             "details": ""
             }
         },
@@ -34,6 +35,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://imgur.com/BtoUtJs.jpg",
             "details": ""
             }
         },
@@ -52,6 +54,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://imgur.com/lj5EiU9.jpg",
             "details": ""
             }
         },
@@ -70,6 +73,7 @@
             "boro": "Manhattan",
             "year_round": false,
             "handicap_a11y": true,
+            "img": "https://imgur.com/qcBMkw2.jpg",
             "details": ""
             }
         },
@@ -88,6 +92,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://imgur.com/WquNK1G.jpg",
             "details": ""
             }
         },
@@ -106,6 +111,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://i.imgur.com/5aWCUN1.jpg",
             "details": ""
             }
         },
@@ -124,6 +130,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://i.imgur.com/Am5BCEs.jpg",
             "details": ""
             }
         },
@@ -142,6 +149,7 @@
             "boro": "Manhattan",
             "year_round": false,
             "handicap_a11y": true,
+            "img": "https://i.imgur.com/kTMl5mO.jpg",
             "details": ""
             }
         },
@@ -160,6 +168,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://i.imgur.com/ml5YV4J.jpg",
             "details": "Historic neighborhood park named for an 18th-century publisher, with a playground & benches."
             }
         },
@@ -178,6 +187,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": false,
+            "img": "https://i.imgur.com/etJbHiN.jpg",
             "details": ""
             }
         },
@@ -196,6 +206,7 @@
             "boro": "Manhattan",
             "year_round": true,
             "handicap_a11y": true,
+            "img": "https://i.imgur.com/FUF8v66.jpg",
             "details": "Environmental center in old Central Park boathouse that lends fishing equipment for catch & release."
             }
         }

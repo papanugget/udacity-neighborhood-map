@@ -15,13 +15,14 @@ class App extends Component {
       lat: 40.758939,
       zoom: 12,
       locations: {},
+      images: [],
       query: '',
       open: false
     }
   }
     componentDidMount() {
       // get restoom data 
-      this.getRestrooms();   
+      this.getRestrooms(); 
     }
     // get restroom function
     getRestrooms = () => {
@@ -33,9 +34,9 @@ class App extends Component {
         cache: 'default'
       };
       // new request for JSON data from API
-      const restroomData = new Request('https://api.myjson.com/bins/d8i44', myInit);
+      const restroomData = new Request('https://api.myjson.com/bins/1c752k', myInit);
       // init empty var to contain restroomData
-      let restroomMarkers;
+      let restrooms;
       // fetch request
       fetch(restroomData)
       // promise return 
@@ -48,10 +49,10 @@ class App extends Component {
         throw new Error('No network response.  Please try again later.');
       }).then( res => { 
         // send response data to restroomMarkers obj
-        restroomMarkers = res;
+        restrooms = res;
         // send data object to state
-        this.setState({locations: restroomMarkers});
-        this.mapInit(restroomMarkers);
+        this.setState({locations: restrooms});
+        this.mapInit(restrooms);
         // console.log(this.state.locations);
         // log any errors
       }).catch( err => console.log('Error: ', err));
@@ -141,11 +142,13 @@ class App extends Component {
           .setLngLat(currentMarker.geometry.coordinates)
           .setHTML(`<h3>${current.name}</h3>
                       <h4>Address: ${current.address}</h4>
+                      <img src="${current.img}"/>
                       <div class="details">${current.year_round ? 'Open year round' : ''}</div>
                       <div class="details">${current.handicap_a11y ? '<div id="a11y"></div>' : ''}
             `)
           .addTo(map);
       }
+
 
       function flyToMarker(currentMarker) {
         map.flyTo({
@@ -155,7 +158,6 @@ class App extends Component {
       }
 
       function buildRestroomList(data) {
-        // console.log(data);
         // eslint-disable-next-line
         data.features.map((restroom, index) => {
             let currentRestroom = restroom;
