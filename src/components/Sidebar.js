@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { slide as Menu } from 'react-burger-menu';
+import SearchBar from './Search';
+
 
 class Sidebar extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            locations: null,
+            names: null,
+            query: ''
+        }
+    }
     componentWillReceiveProps(nextProps) {
         let markerLocs;
-        // console.log(nextProps.locations);
         markerLocs = nextProps.locations;
         this.buildRestroomList(markerLocs);
-    }
+        this.setState({locations: markerLocs});
+        this.filterLocs(markerLocs);
+    };
     buildRestroomList(data) {
-        console.log(data);
+        // console.log(data);
         data.features.map((restroom, index) => {
             let currentRestroom = restroom;
             let restroomProp = currentRestroom.properties;
@@ -25,33 +32,46 @@ class Sidebar extends Component {
                                 </div>   
                             </div><br>`;
             locations.innerHTML += location;
+        });
+    };
+    // push restroom names to array
+    filterLocs(data) {
+        let names = [];
+        data.features.map(restroom => {
+            let name = restroom.properties.name;
+            names.push(name);
         })
+        this.setState({names: names})
+    }
+
+    updateQuery = query => {
+        this.setState({query})
+        this.state.names.map(name => name.setVisible(true))
+        let filterNames;
+        let notVisibleMarkers;
+
+        if(query) {
+            console.log(this.state.query);
+            // filterNames = this.state.names.filter(name => test(name))
+            // this.setState({ names: filterNames })
+        }
     }
     render() {
         return (
-            <Menu>
-                <div className="locations" id="locations">
-                    <h2 className="title-large">Public Restrooms</h2>
-                    <form id="search-form">
-                        <input 
-                            // value={this.state.term}
-                            id="restroom-search" 
-                            type="text" 
-                            // onChange={ (e) =>  {
-                            //     this.setState({query: e.target.value})
-                            // }}
-                        />
-                        <br></br>
-                        {/* You are looking for: {this.nextProps.query} */}
-                        <br></br>
-                        <label htmlFor="handicap">Handicap Accessible </label>
-                        <input type="checkbox" name="handicap" id="handicap"/>
-                        <br></br>
-                        <label htmlFor="year-round">Open Year Round</label>
-                        <input type="checkbox" name="year-round" id="year-round" />
-                    </form>
-                </div>
-            </Menu>
+            <div>
+                <Menu>
+                    <div className="locations" id="locations">
+                        <h2 className="title-large">Public Restrooms</h2>
+                            <fieldset className='with-icon' >
+                                <span className='icon search'></span>
+                                <div>
+                                    <SearchBar updateQuery={this.updateQuery}/>
+                                </div>
+                            </fieldset>
+                    </div>
+                </Menu>
+            </div>
+            
         )
     }
 }

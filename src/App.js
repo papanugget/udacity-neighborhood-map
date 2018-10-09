@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
-import Sidebar from './components/Sidebar';
+import BurgerIcon from './components/BurgerIcon';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Drawer from 'material-ui/Drawer';
+import SearchBar from './components/Search';
 import './App.css';
 
 class App extends Component {
@@ -12,7 +15,8 @@ class App extends Component {
       lat: 40.758939,
       zoom: 12,
       locations: {},
-      query: ''
+      query: '',
+      open: false
     }
   }
     componentDidMount() {
@@ -30,10 +34,8 @@ class App extends Component {
       };
       // new request for JSON data from API
       const restroomData = new Request('https://api.myjson.com/bins/d8i44', myInit);
-
       // init empty var to contain restroomData
       let restroomMarkers;
-
       // fetch request
       fetch(restroomData)
       // promise return 
@@ -56,7 +58,7 @@ class App extends Component {
     }
     
     // load map after restroom data is retrieved
-    mapInit = restroomMarkers => {
+     mapInit = data => {
       mapboxgl.accessToken = this.state.api_key;
       const { lng, lat, zoom } = this.state;
       // console.log(restroomMarkers);
@@ -74,7 +76,7 @@ class App extends Component {
           type: 'symbol',
           source: {
             type: 'geojson',
-            data: restroomMarkers
+            data: data
           },
           layout: {
             'icon-image': 'custom-marker',
@@ -82,7 +84,8 @@ class App extends Component {
           }
         });
           // function call with restroomMarkers data
-          addMarkers(restroomMarkers);
+          addMarkers(data);
+          buildRestroomList(data);
         });
 
       // change coordinates displayed when map moves
@@ -108,11 +111,16 @@ class App extends Component {
             .addTo(map);
           // event listner for each map marker
           mapMarker.addEventListener('click', (e) => {
-            // console.log(e);
+            let activeItem = document.getElementsByClassName('active');
             // select any previous active markers
             e.stopPropagation();
             createPopup(marker);
             flyToMarker(marker);
+            if(activeItem[0]) {
+              activeItem[0].classList.remove('active');
+            }
+            let restroom = document.getElementById(`listing-${index}`);
+            restroom.classList.add('active');
           });
         });
       };
@@ -144,28 +152,73 @@ class App extends Component {
         })
       };
 
+      function buildRestroomList(data) {
+        // console.log(data);
+        data.features.map((restroom, index) => {
+            let currentRestroom = restroom;
+            let restroomProp = currentRestroom.properties;
+            // select locations container in sidebar and append div / item for each restroom
+            let locations = document.getElementById('locations');
+            let location = `<div class='item' id=listing-${index}>
+                                <a href='#' class='title' data-value=${index}>${restroomProp.name}</a>
+                                <div class='details'>${restroomProp.address}<br>${restroomProp.year_round ? 'Open Year Round' : ''} ${restroomProp.handicap_a11y ? 'Handicap Accessible' : ''}<br>
+                                </div>   
+                            </div><br>`;
+            locations.innerHTML += location;
+            locations.addEventListener('click', e => {
+              let activeItem = document.getElementsByClassName('active');
+              if(activeItem[0]) {
+                activeItem[0].classList.remove('active');
+              }
+              // console.log(e.target.classList);
+              if(e.target.className === 'title') {
+                let clickedRestroom = data.features[e.target.getAttribute('data-value')];
+                e.target.parentNode.classList.add('active');
+                flyToMarker(clickedRestroom);
+                createPopup(clickedRestroom);
+              }                                       
+            })
+        });
+      };
+ 
     }   
 
-
+    handleToggle = () => {
+      this.setState({open: !this.state.open})
+      document.querySelector('.burger-menu').classList.toggle('open');
+    }
+    handleClose = () => this.setState({open: false});
   render() {
     // contains lng, lat coordinates for the location layer in upper right
     const { lng, lat, zoom } = this.state;
-    // console.log(this.state.data);
+    const drawerStyle = { 
+      'text-align': 'center'
+    };
     return (
       <main>
-
         <div className="inline-block absolute top right mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
           <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
 
         <div ref={el => this.mapContainer = el} className="absolute top right left bottom">
         </div>
+        <BurgerIcon label="Open Menu" onClick={this.handleToggle} />
+        <MuiThemeProvider>
+          <Drawer
+            docked={false}
+            width={'25%'}
+            open={this.state.open}
+            onRequestChange={(open) => this.setState({open})}
+            style={drawerStyle}
+          >
+          <SearchBar />
+            <div className="locations" id="locations">
+              
 
-        <Sidebar 
-          locations={this.state.locations}
-          query={this.state.query}
-        />
-
+            </div>
+          </Drawer>
+        </MuiThemeProvider>
+        
       </main>
     );
   }
