@@ -2,8 +2,10 @@
   "name": "react-map-v6",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://papanugget.github.io/udacity-neighborhood-map",
   "dependencies": {
     "@material-ui/core": "^3.2.0",
+    "gh-pages": "^2.0.1",
     "mapbox-gl": "^0.50.0-beta.1",
     "material-ui": "^0.20.2",
     "react": "^16.5.2",
@@ -16,6 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

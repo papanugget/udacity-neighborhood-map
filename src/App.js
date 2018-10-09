@@ -100,6 +100,7 @@ class App extends Component {
 
       function addMarkers(data) {
         // iterate over passed in object data
+        // eslint-disable-next-line
         data.features.map((marker, index) => {
           // create a div for each object element
           let mapMarker = document.createElement('div');
@@ -135,6 +136,7 @@ class App extends Component {
           popups[0].remove();
         };
         // create popup at selected marker
+        // eslint-disable-next-line
         let newPopup = new mapboxgl.Popup({ closeOnClick: false})
           .setLngLat(currentMarker.geometry.coordinates)
           .setHTML(`<h3>${current.name}</h3>
@@ -143,13 +145,6 @@ class App extends Component {
                       <div class="details">${current.handicap_a11y ? '<div id="a11y"></div>' : ''}
             `)
           .addTo(map);
-      }
-
-      function clearPopup() {
-        const popups = document.getElementsByClassName('mapboxgl-popup');
-        if(popups[0]) {
-          popups[0].remove();
-        };
       }
 
       function flyToMarker(currentMarker) {
@@ -161,6 +156,7 @@ class App extends Component {
 
       function buildRestroomList(data) {
         // console.log(data);
+        // eslint-disable-next-line
         data.features.map((restroom, index) => {
             let currentRestroom = restroom;
             let restroomProp = currentRestroom.properties;
@@ -242,7 +238,7 @@ class App extends Component {
           >
           <SearchBar updateQuery={this.updateQuery}/>
             <div className="locations" id="locations">
-              
+              <h2 className="title-large">Public Restrooms In Manhattan</h2>
 
             </div>
           </Drawer>
