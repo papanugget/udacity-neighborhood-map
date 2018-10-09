@@ -13,12 +13,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You can check out the [live version here!](https://papanugget.github.io/udacity-neighborhood-map/)
 
- - 1. Clone the git repo
+ 1. Clone the git repo
   `git clone https://github.com/papanugget/udacity-neighborhood-map.git`
- - 2.  Change to the directory of the project, install `npm`, dependencies, and run application
+ 2.  Change to the directory of the project, install `npm`, dependencies, and run application
   `npm install`
   `npm start`
- - 3. The `npm start` command will automatically run the application in a browser if it doesn't please open browser window and navigate to :
+ 3. The `npm start` command will automatically run the application in a browser if it doesn't please open browser window and navigate to :
    `http://localhost:3000`
 
 ## Technology
