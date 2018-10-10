@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Instructions
 
-You can check out the [live version here!](https://papanugget.github.io/udacity-neighborhood-map/)
+You can check out the [live version here!](https://react-neighborhood-map.herokuapp.com/)
 
  1. Clone the git repo
   `git clone https://github.com/papanugget/udacity-neighborhood-map.git`
