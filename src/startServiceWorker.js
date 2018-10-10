@@ -1,6 +1,6 @@
 export default function startServiceWorker() {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/service-worker.js', {scope: '/static/'})
+      navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
       .then(function(reg) {
         console.log('Registration succeeded!', reg);
       })
