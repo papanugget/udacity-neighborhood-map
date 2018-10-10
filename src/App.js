@@ -183,6 +183,7 @@ class App extends Component {
             locations.innerHTML += location;
             locations.addEventListener('click', e => {
               let activeItem = document.getElementsByClassName('active');
+              
               if(activeItem[0]) {
                 activeItem[0].classList.remove('active');
               }
