@@ -242,7 +242,7 @@ class App extends Component {
 
         <div ref={el => this.mapContainer = el} className="absolute top right left bottom">
         </div>
-        <BurgerIcon label="Open Menu" onClick={this.handleToggle} tabindex="0" aria-label="restroom list & search"/>
+        <BurgerIcon label="Open Menu" onClick={this.handleToggle} tabIndex="0" aria-label="restroom list & search"/>
         <MuiThemeProvider>
           <Drawer
             docked={false}
