@@ -6,6 +6,7 @@ import Drawer from 'material-ui/Drawer';
 import SearchBar from './components/Search';
 import './App.css';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -113,11 +114,20 @@ class App extends Component {
             .addTo(map);
           // event listner for each map marker
           mapMarker.addEventListener('click', (e) => {
-            let activeItem = document.getElementsByClassName('active');
             // select any previous active markers
+            let activeItem = document.getElementsByClassName('active');
+            let activeMarkers = document.getElementsByClassName('marker-active');
             e.stopPropagation();
             createPopup(marker);
             flyToMarker(marker);
+            if(activeMarkers[0]) {
+              activeMarkers[0].classList.replace('marker-active', 'marker');
+            }
+            if(mapMarker.classList === 'marker-active mapboxgl-marker mapboxgl-marker-anchor-center') {
+              mapMarker.classList.replace('marker-active', 'marker');
+            } else {
+              mapMarker.classList.replace('marker', 'marker-active');
+            }
             if(activeItem[0]) {
               activeItem[0].classList.remove('active');
             }
@@ -167,7 +177,7 @@ class App extends Component {
             let location = `<div class='item' id=listing-${index}>
                                 <a href='#' class='title' data-value=${index}>${restroomProp.name}</a>
                                 <img src="${restroomProp.img}" alt="image of ${restroomProp.name}"/>
-                                <div class='details'>${restroomProp.address}<br>${restroomProp.year_round ? 'Open Year Round' : ''} ${restroomProp.handicap_a11y ? 'Handicap Accessible' : ''}<br>
+                                <div class='details' aria-label="address and ">${restroomProp.address}<br>${restroomProp.year_round ? 'Open Year Round' : ''} ${restroomProp.handicap_a11y ? 'Handicap Accessible' : ''}<br>
                                 </div>   
                             </div><br>`;
             locations.innerHTML += location;
