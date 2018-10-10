@@ -54,16 +54,14 @@ class App extends Component {
         // send data object to state
         this.setState({locations: restrooms});
         this.mapInit(restrooms);
-        // console.log(this.state.locations);
-        // log any errors
-      }).catch( err => console.log('Error: ', err));
+        // alert any errors
+      }).catch( err => window.alert('Oops!  Something\'s not right. Please try again later. This was the error: ', err));
     }
     
     // load map after restroom data is retrieved
      mapInit = data => {
       mapboxgl.accessToken = this.state.api_key;
       const { lng, lat, zoom } = this.state;
-      // console.log(restroomMarkers);
       const map = new mapboxgl.Map({
         container: this.mapContainer,
         style: 'mapbox://styles/papanugget/cjmmeyf99ddth2rnyoua824ey',
@@ -141,7 +139,6 @@ class App extends Component {
         let current = currentMarker.properties;
         // select any previous popups
         const popups = document.getElementsByClassName('mapboxgl-popup');
-        // console.log(popups);
         // remove previous popups from display
         if(popups[0]) {
           popups[0].remove();
@@ -150,7 +147,7 @@ class App extends Component {
         // eslint-disable-next-line
         let newPopup = new mapboxgl.Popup({ closeOnClick: false})
           .setLngLat(currentMarker.geometry.coordinates)
-          .setHTML(`<h3>${current.name}</h3>
+          .setHTML(`<h3 aria-label="restroom info">${current.name}</h3>
                       <h4>Address: ${current.address}</h4>
                       <img src="${current.img}" alt="image of ${current.name}"/>
                       ${current.year_round ? '<div class="details" aria-label="year round">Open year round</div>' : ''}
@@ -183,13 +180,18 @@ class App extends Component {
             locations.innerHTML += location;
             locations.addEventListener('click', e => {
               let activeItem = document.getElementsByClassName('active');
-              
               if(activeItem[0]) {
                 activeItem[0].classList.remove('active');
               }
-              // console.log(e.target.classList);
+              let activeMarker = document.getElementsByClassName('marker-active');
+              if(activeMarker[0]) {
+                activeMarker[0].classList.replace('marker-active', 'marker');
+              }
               if(e.target.className === 'title') {
                 let clickedRestroom = data.features[e.target.getAttribute('data-value')];
+                let current = e.target.getAttribute('data-value');
+                let markers = document.getElementsByClassName('marker');
+                markers[current].classList.replace('marker', 'marker-active');
                 e.target.parentNode.classList.add('active');
                 flyToMarker(clickedRestroom);
                 createPopup(clickedRestroom);
@@ -215,7 +217,6 @@ class App extends Component {
       let locations = document.getElementsByClassName('item');
       let mapMarkers = document.getElementsByClassName('marker');
       query = query.toLowerCase();
-      // console.log(mapMarkers);
       this.clearPopup();
       for(let i = 0; i < locations.length; i++) {
           if(locations[i].innerText.toLowerCase().indexOf(query) > - 1) {
@@ -236,12 +237,12 @@ class App extends Component {
     return (
       <main>
         <div className="inline-block absolute top right mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
-          <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
+          <div aria-label="dynamic coordinates listing">{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
         </div>
 
         <div ref={el => this.mapContainer = el} className="absolute top right left bottom">
         </div>
-        <BurgerIcon label="Open Menu" onClick={this.handleToggle} />
+        <BurgerIcon label="Open Menu" onClick={this.handleToggle} tabindex="0" aria-label="restroom list & search"/>
         <MuiThemeProvider>
           <Drawer
             docked={false}

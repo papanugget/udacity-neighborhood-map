@@ -14,6 +14,24 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <script type="text/javascript">
+      function loadScript(src) {
+        return new Promise(function(resolve, reject) {
+          let script = document.createElement('script');
+          script.src = src;
+
+          script.onload = () => resolve(script);
+          script.onerror = () => reject(new Error("Script load error: " + src));
+
+          document.head.append(script);
+        });
+      }
+      let promise = loadScript("https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js");
+
+      promise.then(
+        script => console.log(`${script.src} is loaded!`),
+        error => alert(`Error: ${error.message}`)
+      );
+    </script>
   </body>
 </html>
