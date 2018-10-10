@@ -18,7 +18,8 @@ class App extends Component {
       locations: {},
       images: [],
       query: '',
-      open: false
+      open: false,
+      hasError: false
     }
   }
     componentDidMount() {
@@ -47,7 +48,7 @@ class App extends Component {
           return res.json();
         }
         // error if response not ok 
-        throw new Error('No network response.  Please try again later.');
+        // throw new Error('Network Error.');
       }).then( res => { 
         // send response data to restroomMarkers obj
         restrooms = res;
@@ -55,18 +56,25 @@ class App extends Component {
         this.setState({locations: restrooms});
         this.mapInit(restrooms);
         // alert any errors
-      }).catch( err => window.alert('Oops!  Something\'s not right. Please try again later. This was the error: ', err));
+      }).catch( err => {
+          alert('Error fetching data.  Please try again later.');
+          console.log('Error: ' + err);
+        });
     }
     
     // load map after restroom data is retrieved
-     mapInit = data => {
-      mapboxgl.accessToken = this.state.api_key;
-      const { lng, lat, zoom } = this.state;
-      const map = new mapboxgl.Map({
-        container: this.mapContainer,
-        style: 'mapbox://styles/papanugget/cjmmeyf99ddth2rnyoua824ey',
-        center: [lng, lat],
-        zoom
+     mapInit = (data) => {
+        mapboxgl.accessToken = this.state.api_key;
+        const { lng, lat, zoom } = this.state;
+        const map = new mapboxgl.Map({
+          container: this.mapContainer,
+          style: 'mapbox://styles/papanugget/cjmmeyf99ddth2rnyoua824ey',
+          center: [lng, lat],
+          zoom  
+      });
+      // map error handling
+      map.on('error', e => {
+       alert(`${e.error.message}`);
       });
 
       // load map
@@ -229,38 +237,40 @@ class App extends Component {
       }
     }
   render() {
-    // contains lng, lat coordinates for the location layer in upper right
-    const { lng, lat, zoom } = this.state;
-    const drawerStyle = { 
-      'textAlign': 'center'
-    };
+        // contains lng, lat coordinates for the location layer in upper right
+        const { lng, lat, zoom } = this.state;
+        const drawerStyle = { 
+          'textAlign': 'center'
+        };
     return (
-      <main>
-        <div className="inline-block absolute top right mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
-          <div aria-label="dynamic coordinates listing">{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
-        </div>
-
-        <div ref={el => this.mapContainer = el} className="absolute top right left bottom">
-        </div>
-        <BurgerIcon label="Open Menu" onClick={this.handleToggle} tabIndex="0" aria-label="restroom list & search"/>
-        <MuiThemeProvider>
-          <Drawer
-            docked={false}
-            width={'25%'}
-            open={this.state.open}
-            onRequestChange={(open) => this.setState({open})}
-            style={drawerStyle}
-          >
-          <SearchBar updateQuery={this.updateQuery}/>
-            <div className="locations" id="locations">
-              <h2 className="title-large">Public Restrooms In Manhattan</h2>
-
+        <main>
+            <div className="inline-block absolute top right mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
+              <div aria-label="dynamic coordinates listing">{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
             </div>
-          </Drawer>
-        </MuiThemeProvider>
-        
-      </main>
-    );
+
+            <div ref={el => this.mapContainer = el} className="absolute top right left bottom">
+            </div>
+            <BurgerIcon label="Open Menu" onClick={this.handleToggle} tabIndex="0" aria-label="restroom list & search"/>
+            <MuiThemeProvider>
+              <Drawer
+                docked={false}
+                width={'25%'}
+                open={this.state.open}
+                onRequestChange={(open) => this.setState({open})}
+                style={drawerStyle}
+              >
+              <SearchBar updateQuery={this.updateQuery}/>
+                <div className="locations" id="locations">
+                  <h2 className="title-large">Public Restrooms In Manhattan</h2>
+
+                </div>
+              </Drawer>
+            </MuiThemeProvider>
+        </main>
+      );
   }
 }
+window.addEventListener('error', e => {
+  console.log('caught the error:  ' + e.message);
+});
 export default App;
